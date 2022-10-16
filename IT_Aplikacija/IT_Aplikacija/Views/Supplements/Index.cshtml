@@ -1,0 +1,166 @@
+﻿@model IEnumerable<IT_Aplikacija.Models.Supplement>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+
+<div style="display:inline-block">
+    <div style="margin-top:20px; display:inline-block;">
+        @using (Html.BeginForm("Index", "Supplements"))
+        {
+            <div style="display:inline-block;">
+                <div style="display:inline-block;">
+                    <p style="font-size:25px;">Search</p>
+                </div>
+
+                <div style="display:inline-block;">
+                    <select name="search">
+                        <option value="all">All</option>
+                        <option value="Protein">Protein</option>
+                        <option value="Creatine">Creatine</option>
+                        <option value="Gainer">Gainer</option>
+                        <option value="BCAA">BCAA</option>
+                    </select>
+                    <input type="submit" class="bg-success" value="Submit" />
+                </div>
+            </div>
+        }
+    </div>
+    @if (User.IsInRole("Admin"))
+    {
+        <div style="display: inline-block; margin-left: 100px; color: gray; font-size: 15px; text-decoration: none;">
+            @Html.ActionLink("Add new product", "Create", "Supplements", new { @class = "my-class" })
+        </div>
+    }
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="wholediv col-md-4 col-xs-6 border-primary mb-3">
+            <div class="card mb-3" style="max-width: 540px;">
+                <div class="row g-0">
+                    <a href="/Supplements/Details/@item.ID" style="text-decoration: none;">
+                        <div class="col-md-12">
+                            <div class="card-header text-white bg-info" style="height: 40px; text-align: center; background-color: #212225">
+                                <p class="card-text" style="text-align: left; margin-top:30px; vertical-align:central">
+                                    <h5 class="card-title" style="font-size: 20px; color: white; text-align: left; margin-left: 10px; vertical-align: central">
+                                        @item.Company @item.Name @item.Taste
+                                    </h5>
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+
+                            <img src="@item.ImageURL" width="115%" height="130%" alt="@item.Name" style="margin-right:20px;">
+
+                        </div>
+
+                        <div class="col-md-6" style="background-color:white; height:190px; width:180px;">
+                            <div class="card-body" style="margin-top:40px; margin-left:10px;">
+                                <p class="card-text" style="color:black; font-size: 15px;"><b style="color:black">Product: </b>@item.Name</p>
+                                @if ("Chocolate".Equals(item.Taste.ToString()))
+                                {
+                                    <p id="vkus" class="card-text" style="color:chocolate; font-size: 15px;"><b style="color:black">Taste: </b><b>@item.Taste</b></p>
+                                }
+                                @if ("Vanilla".Equals(item.Taste.ToString()))
+                                {
+                                    <p id="vkus" class="card-text" style="color:navajowhite; font-size: 15px;"><b style="color:black">Taste: </b><b>@item.Taste</b></p>
+                                }
+                                @if ("Banana".Equals(item.Taste.ToString()))
+                                {
+                                    <p id="vkus" class="card-text" style="color:darkgoldenrod; font-size: 15px;"><b style="color:black">Taste: </b><b>@item.Taste</b></p>
+                                }
+                                @if ("Caramel".Equals(item.Taste.ToString()))
+                                {
+                                    <p id="vkus" class="card-text" style="color:sandybrown; font-size: 15px;"><b style="color:black">Taste: </b><b>@item.Taste</b></p>
+                                }
+                                @if ("Strawberry".Equals(item.Taste.ToString()))
+                                {
+                                    <p id="vkus" class="card-text" style="color:#fc5a8d; font-size: 15px;"><b style="color:black">Vkus: </b><b>@item.Taste</b></p>
+                                }
+                                <p class="card-text" style="color: black; font-size: 15px;"><b style="color:black">Weight: </b><b>@item.Weight g</b></p>
+                                <p class="card-text" style="color: black; font-size: 15px;"><b style="color:black">Price: </b>@item.Price den</p>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+
+                            <div class="card-footer float-right" style="float:right; margin-left:150px;">
+                                <p class="card-text float-right" style="float:right; margin-left:50px;">
+                                    @if (User.IsInRole("Editor") || User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" asp-action="Details" asp-route-id="@item.ID">
+                                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-primary text-white" })
+                                        </a>
+                                    }
+                                    @if (User.IsInRole("Admin"))
+                                    {
+                                        <a class="text-white float-right" style="float:right; margin-left:120px;">
+                                            @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger text-white" })
+                                        </a>
+                                    }
+                                </p>
+                            </div>
+
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<style>
+    select {
+        width: 50px;
+        min-width: 15ch;
+        max-width: 30ch;
+        border: 1px solid var(--select-border);
+        border-radius: 0.25em;
+        padding: 0.25em 0.5em;
+        font-size: 17px;
+        cursor: pointer;
+        line-height: 1.1;
+        background-color: #fff;
+        background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+    }
+
+    input[type=submit] {
+        display: inline-block;
+        padding: 5px 5px;
+        font-size: 20px;
+        cursor: pointer;
+        text-align: center;
+        text-decoration: none;
+        outline: none;
+        color: #fff;
+        background-color: #212225;
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 9px #999;
+        margin-left: 5px;
+    }
+
+        input[type=submit]:hover {
+            background-color: gray;
+            box-shadow: none;
+        }
+
+        input[type=submit]:active {
+            background-color: #3e8e41;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+
+    a.my-class {
+        color: gray;
+        font-size: 15px;
+    }
+
+        a.my-class:hover {
+            font-size: 20px;
+        }
+</style>

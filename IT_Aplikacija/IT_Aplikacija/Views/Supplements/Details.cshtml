@@ -1,0 +1,65 @@
+﻿@model IT_Aplikacija.Models.Supplement
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>@Model.Name</h2>
+
+<div id="sodrzina">
+    <div style="width:300px; height:300px;">
+        <img src="@Model.ImageURL" style="width:100%; height:100%;">
+    </div>
+    <div>
+        <b>
+            <p style="margin-top:20px;">
+               Product: @Model.Name
+            </p>
+            <p>
+                Company: @Model.Company
+            </p>
+            <p>
+                Weight: @Model.Weight
+            </p>
+            <p>
+                Taste: @Model.Taste
+            </p>
+            <p>
+                Recommended @Model.Recommended_dose
+            </p>
+            <p>
+                Expiration date: @Model.Expiration_date
+            </p>
+            <p style="font-size:35px; color:forestgreen">
+                Price: @Model.Price
+            </p>
+        </b>
+    </div>
+</div>
+
+
+<p>
+    @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary text-white" })
+    }
+    @Html.ActionLink("Back", "Index", "Supplements", new { @class = "btn btn-danger text-white" })
+    
+    @Html.ActionLink("Add To Cart", "Cart",new { id = Model.ID }, new { @class = "btn btn-success" })
+
+
+
+</p>
+
+
+<style>
+    #sodrzina {
+        display: flex;
+    }
+
+    p {
+        margin-top: 5px;
+        font-size: 20px;
+        font-family: helvetica-bold
+    }
+</style>

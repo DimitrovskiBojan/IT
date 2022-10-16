@@ -1,0 +1,24 @@
+﻿@model IT_Aplikacija.Models.AddToRoleModel
+@{
+    ViewBag.Title = "AddUserToRole";
+}
+
+<h2>Add user to role</h2>
+@using (Html.BeginForm("AddUserToRole", "Account"))
+{
+    <div class="form-group">
+        @Html.LabelFor(x => x.Email)
+        @Html.TextBoxFor(x => x.Email)
+    </div>
+    <div>
+        @Html.DropDownListFor(x =>x.Selected_Role, new SelectList(Model.Role), new { @class = "form-contorl" })
+    </div>
+    <input type="submit" value="Додади">
+}
+
+<style>
+    .form-control {
+        width: 200px;
+    }
+</style>
+

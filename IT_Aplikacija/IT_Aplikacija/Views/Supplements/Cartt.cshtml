@@ -1,0 +1,52 @@
+﻿@model List<IT_Aplikacija.Models.Cart>
+@{
+    ViewBag.Title = "Cart";
+}
+
+<h2>Cart</h2>
+<hr />
+<div style="margin-top:10px">
+    @foreach (var item in Model)
+    {
+        <div id="sodrzina">
+            <div style="width:300px; height:300px;">
+                <img src="@item.ImageURL" style="width:100%; height:100%;">
+            </div>
+            <div>
+                <b>
+                    <p style="margin-top:20px;">
+                        Product: @item.Name
+                    </p>
+                    <p>
+                        Company: @item.Company
+                    </p>
+                    <p>
+                        Weight: @item.Weight
+                    </p>
+                    <p>
+                        Recommended @item.Recommended_dose
+                    </p>
+                    <p>
+                        Expiration date: @item.Expiration_date
+                    </p>
+                    <p style="font-size:35px; color:forestgreen">
+                        Price: @item.Price
+                    </p>
+                </b>
+                @Html.ActionLink("Remove", "DeleteFromCart", new { id = item.CartID }, new { @class = "btn btn-primary text-white" })
+            </div>
+        </div>
+    }
+</div>
+
+<style>
+    #sodrzina {
+        display: flex;
+    }
+
+    p {
+        margin-top: 5px;
+        font-size: 20px;
+        font-family: helvetica-bold
+    }
+</style>
